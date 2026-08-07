@@ -20,3 +20,9 @@ export interface Product {
   is_active: boolean;
   category?: Category;
 }
+
+export interface CartItem{
+  product:Product;
+  quantity:number;
+  total:number;
+}

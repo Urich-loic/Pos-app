@@ -5,6 +5,7 @@ import { Head, router } from "@inertiajs/react";
 import { useState } from "react";
 import { toast } from "sonner";
 import ProductForm from "./product-form";
+import { Pen, Trash } from "lucide-react";
 
 interface Props{
     products: Product[],
@@ -70,12 +71,15 @@ export default function ProductIndex({ products, categories }: Props) {
                             {
                                 products.map((product)=>{
                                     return  <tr key={product.id} className="transition-colors hover:bg-muted/50">
+                                        <td className="px-3 py-4 text-left"> Image</td>
                                         <td className="px-3 py-4 text-left"> {product.name}</td>
                                         <td className="px-3 py-4 text-left"> {product.category?.name}</td>
                                         <td className="px-3 py-4 text-left"> {product.price}</td>
                                         <td className="px-3 py-4 text-left"> {product.stock}</td>
                                         <td className="px-3 py-4 text-left"> {product.is_active ? 'Active' : 'Inactive'}</td>
-                                        <td className="px-3 py-4 text-left"> {product.action}</td>
+                                        <td className="px-3 py-4 text-left flex gap-3"> 
+                                            <Button className="hover:bg-blue-500" onClick={()=>handleEdit(product)}><Pen /></Button>
+                                            <Button className="hover:bg-red-500" onClick={()=>handleDelete(product)}><Trash /></Button></td>
                                         </tr>
 })
                             }
@@ -95,5 +99,10 @@ export default function ProductIndex({ products, categories }: Props) {
     }
 
     ProductIndex.layout = {
-        Breadcrumbs:[{titlt:'Products', href:'/products'}]
+        breadcrumbs:[
+            {
+                title:'Products', 
+                href:'/products'
+            }
+        ]
     };
