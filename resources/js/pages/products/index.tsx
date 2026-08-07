@@ -69,12 +69,12 @@ export default function ProductIndex({ products, categories }: Props) {
                             )}
                             {
                                 products.map((product)=>{
-                                    return  <tr>
+                                    return  <tr key={product.id} className="transition-colors hover:bg-muted/50">
                                         <td className="px-3 py-4 text-left"> {product.name}</td>
-                                        <td className="px-3 py-4 text-left"> {product.category}</td>
+                                        <td className="px-3 py-4 text-left"> {product.category?.name}</td>
                                         <td className="px-3 py-4 text-left"> {product.price}</td>
                                         <td className="px-3 py-4 text-left"> {product.stock}</td>
-                                        <td className="px-3 py-4 text-left"> {product.status}</td>
+                                        <td className="px-3 py-4 text-left"> {product.is_active ? 'Active' : 'Inactive'}</td>
                                         <td className="px-3 py-4 text-left"> {product.action}</td>
                                         </tr>
 })

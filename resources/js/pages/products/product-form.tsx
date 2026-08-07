@@ -1,7 +1,8 @@
 import InputError from "@/components/input-error";
+import { Checkbox } from "@/components/ui/checkbox";
 import { DialogContent, DialogHeader, DialogOverlay } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Category, Product } from "@/types";
 import { Head, router, useForm } from "@inertiajs/react";
 import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
@@ -19,6 +20,7 @@ export default function ProductForm({ categories, products, onClose }: Props) {
     const { data, setData, post, put, errors, reset} = useForm({ 
         name: products?.name || '',
         category_id: products?.category_id || '',
+        categories: categories || [],
         description: products?.description || '',
         price: products?.price || 0,
         stock: products?.stock || 0,
@@ -62,15 +64,16 @@ export default function ProductForm({ categories, products, onClose }: Props) {
                         </div>
                         <div>
                             <Label htmlFor="name">Category</Label>
-                            <Select id="category_id" value={data.category_id} onChange={e => setData('category_id', e.target.value)}>
+                            <Select id="category_id" value={data.category_id} onValueChange={e => setData('category_id', e)}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select Category" />
+                                </SelectTrigger>
                                     <SelectContent>
                                             {categories.map(category => (
-                                                <option key={category.id} value={category.id}>{category.name}</option>
+                                                <SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>
                                             ))}
                                     </SelectContent>
-                                </SelectTrigger>
+                                
                                <InputError message={errors.category_id} />
                             </Select>
                             
@@ -88,19 +91,19 @@ export default function ProductForm({ categories, products, onClose }: Props) {
                             <InputError message={errors.stock} />
                         </div>
                         </div>
-                        <div>
-                            <Label htmlFor="is_active">Status</Label>
-                            <Select id="is_active" value={data.is_active ? '1' : '0'} onChange={e => setData('is_active', e.target.value === '1')}>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </Select>
-                            <InputError message={errors.is_active} />
-                        </div>
+                       
                         <div>
                             <Label htmlFor="image">Image</Label>
                             <Input type="file" id="image" onChange={e => setData('image', e.target.files ? e.target.files[0] : null)} />
                             <InputError message={errors.image} />
                         </div>
+
+                         <div className="flex items-center space-x-2">
+                             <Checkbox id="is_active" checked={data.is_active} onCheckedChange={checked => setData('is_active', checked)} />
+                            <Label htmlFor="is_active">Status</Label>
+                            <InputError message={errors.is_active} />
+                        </div>                                               
+
                         <div className="flex justify-end mt-4">
                             <button type="button" onClick={onClose} className="mr-2 px-4 py-2 bg-gray-300 rounded">Cancel</button>
                             <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">{products ? 'Update' : 'Create'}</button>
