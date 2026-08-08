@@ -3,6 +3,9 @@ import { Head, router } from "@inertiajs/react";
 import { LayoutGrid, LayoutGridIcon, Link, Search } from "lucide-react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import ProductGrid from "./product-grid";
+import CartPanel from "./cart-panel";
+import { useCart } from "./use-cart";
 
 interface Props{
     products: Product[],
@@ -12,26 +15,11 @@ interface Props{
 export default function PosIndex({ products }: Props) {
 
     const [search, setSearch] = useState('');
-    const [cart, setCart] = useState<CartItem[]>([]);
-
+    const { items, subtotal, addItem, setQuantity, removeItem, clear } = useCart();
     const filtered = products.filter(
-        p=> p.name.toLowerCase().includes(search.toLowerCase()) || p.category?.name.toLowerCase().includes(search.toLowerCase()));
+        p=> p.name.toLowerCase().includes(search.toLowerCase()) || 
+        p.category?.name.toLowerCase().includes(search.toLowerCase()));
 
-    const addToCart = (product: Product) => {
-       setCart(
-        current=>{
-             const existing = current.find(item => item.product.id === product.id)
-                if(existing){
-                    return current.map(
-                        item => item.product.id === product.id ? {
-                            ...item, 
-                            quantity: item.quantity + 1, 
-                            total: (item.quantity + 1) * item.product.price} : item
-                        )}
-        return [...current,{ product, quantity: 1, total: product.price }]
-
-        });
-}
 
 return <>
     <Head title="Point of Sale" />
@@ -45,6 +33,17 @@ return <>
                 <Search className="absolute left-3  h4 w-4 "/>
                 <Input className="pl-8" type="text" placeholder="Search products..." value={search} onChange={e => setSearch(e.target.value)} />
             </div>
+        </div>
+        <div className="flex flex-1 overflow-hidden">
+            <ProductGrid products={filtered} onAdd={addItem} />
+            <CartPanel 
+                items={items} 
+                subtotal={subtotal}
+                onAddItem={addItem}
+                onSetQuantity={setQuantity}
+                onRemoveItem={removeItem}
+                onClear={clear}
+            />
         </div>
     </div>
     
