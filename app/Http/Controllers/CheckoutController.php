@@ -74,6 +74,7 @@ class CheckoutController extends Controller
 
     public function receipt(Sale $sale){
         $sale->load('items');
+        // dd($sale);
         return Inertia::render('pos/receipt',[
             "sale"=>$sale
         ]);

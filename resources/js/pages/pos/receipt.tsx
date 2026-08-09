@@ -40,7 +40,10 @@ export default function Receipt({sale}:Props){
                         <div className="text-lef my-4">
                             {item.quantity} x ${item.unit_price}
                         </div>
-                        <hr />
+                    </div>
+                ))}
+
+                 <hr />
                          <div className="flex justify-between mt-4">
                             <span className="flex font-bold truncate">Total</span>
                             <span className="ml-2">${sale.total}</span>
@@ -53,11 +56,10 @@ export default function Receipt({sale}:Props){
                             <span className="flex truncate">Change</span>
                             <span className="ml-2">${sale.change_amount}</span>
                         </div>
-                        <hr />
-                        <div className="flex justify-center py-4"><p>Thank you for your purchase</p></div>
-                    </div>
-                    
-                ))}
+                       
+                        
+                <hr />
+                <div className="flex justify-center py-4"><p>Thank you for your purchase</p></div>
             </div>
     </div>
     </>);
