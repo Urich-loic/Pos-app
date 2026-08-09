@@ -141,3 +141,21 @@
         @apply bg-background text-foreground;
     }
 }
+
+
+@media print {
+    .no-print{
+        display: none !important;
+    }
+
+    body{
+        background: #fff;
+    }
+
+    .receipt-paper{
+        padding:0;
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+}
