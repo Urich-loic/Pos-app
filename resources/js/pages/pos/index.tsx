@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import ProductGrid from "./product-grid";
 import CartPanel from "./cart-panel";
 import { useCart } from "./use-cart";
+import CheckoutDialog from "./checkout-dialog";
+
+
 
 interface Props{
     products: Product[],
@@ -16,6 +19,7 @@ export default function PosIndex({ products }: Props) {
 
     const [search, setSearch] = useState('');
     const { items, subtotal, addItem, setQuantity, removeItem, clear } = useCart();
+    const [showCheckout, setShowCheckout] = useState(false);
     const filtered = products.filter(
         p=> p.name.toLowerCase().includes(search.toLowerCase()) || 
         p.category?.name.toLowerCase().includes(search.toLowerCase()));
@@ -25,9 +29,9 @@ return <>
     <Head title="Point of Sale" />
     <div className="flex h-screen flex-col">
         <div className="flex flex-row items-center p-4 gap-4 border-b">
-            <Link href="/dashboard" className="flex items-center gap-2 text-blue-500 hover:text-blue-700">
+            <a href="/dashboard" className="flex items-center gap-2 text-blue-500 hover:text-blue-700">
                 <LayoutGridIcon/>
-            </Link>
+            </a>
             <span>Point of sale</span>
             <div className="relative flex flex-1 items-center gap-2 max-w-sm ml-4">
                 <Search className="absolute left-3  h4 w-4 "/>
@@ -43,10 +47,17 @@ return <>
                 onSetQuantity={setQuantity}
                 onRemoveItem={removeItem}
                 onClear={clear}
+                onCheckout={()=>setShowCheckout(true)}
             />
         </div>
     </div>
-    
+    <CheckoutDialog
+        open={showCheckout}
+        items={items}
+        subTotal={subtotal}
+        onSuccess={clear}
+        onClose={()=>setShowCheckout(false)}
+    />
 </>;
 
 }

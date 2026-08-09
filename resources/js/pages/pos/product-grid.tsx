@@ -13,7 +13,7 @@ interface Props{
 
 export default function ProductGrid({products, onAdd}:Props){
     if(products.length === 0){
-        return <div className="flex justify-center">No products yet</div>;
+        return <div className="flex flex-1 flex-col overflow-y-auto p-4 justify-center items-center">No products yet</div>;
     }
 
     return <>

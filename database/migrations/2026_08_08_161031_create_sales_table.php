@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->decimal('total', 10, 2);
+            $table->decimal('cash_tendered', 10, 2);
+            $table->decimal('change_amount',10,2);
+            $table->string('status')->default('completed');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

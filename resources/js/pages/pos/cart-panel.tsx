@@ -1,3 +1,4 @@
+import { checkout } from "@/routes";
 import { Product } from "@/types";
 import { Trash2 } from "lucide-react";
 
@@ -14,9 +15,10 @@ interface Props{
     onSetQuantity:(product:Product, quantity:number)=>void;
     onRemoveItem:(productId:number)=>void;
     onClear:()=>void;
+    onCheckout:()=>void;
 }
 
-export default function CartPanel({items, subtotal, onAddItem, onSetQuantity, onRemoveItem, onClear}:Props){
+export default function CartPanel({items, subtotal, onAddItem, onSetQuantity, onRemoveItem, onClear, onCheckout}:Props){
     return <>
     <div className="w-80 flex flex-col border-1 bg-muted/20 p-4">
     <div className="flex justify-between items-center border-b pb-4 mb-4">
@@ -56,8 +58,9 @@ export default function CartPanel({items, subtotal, onAddItem, onSetQuantity, on
                         <span className="text-sm text-muted-foreground">${(subtotal).toFixed(2)}</span>
                     </div>
                     <button 
+                    onClick={onCheckout}
                     disabled = {items.length === 0} 
-                    className="bg-blue-500 text-white px-4 py-1 w-full rounded hover:bg-blue-600">
+                    className="bg-blue-500 text-white px-4 py-1 w-full rounded hover:bg-blue-600 cursor-pointer">
                         Checkout
                     </button>
                 </div>
