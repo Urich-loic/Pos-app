@@ -65,13 +65,13 @@ export default function CheckoutDialog({open, items, subTotal, onSuccess, onClos
                                 <span>${(i.product.price * i.quantity).toFixed(2)}</span>
                             </div>
                         ))}
-                        <div className="flex justiify-between">
+                        <div className="flex justiify-between gap-3">
                             <span>Total</span>
-                            <span>${subTotal.toFixed(2)}</span>
+                            <span> ${subTotal.toFixed(2)}</span>
                         </div>
                         {/* {Cash tendered} */}
                         <div>
-                        <label>Cash tendered</label>
+                        <label className="mb-2">Cash tendered</label>
                         <Input
                         id=""
                         className=""
@@ -83,7 +83,7 @@ export default function CheckoutDialog({open, items, subTotal, onSuccess, onClos
                         autoFocus
                         />
                         </div>
-                        <div>
+                        <div className="flex gap-3">
                             <label>Change</label>
                             <span className={`${change >= 0 ? "text-green-500":"text-desctructive"}`}>${change.toFixed(2)}</span>
                         </div>

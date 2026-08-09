@@ -11,7 +11,7 @@ export default function Receipt({sale}:Props){
     return (<>
     <Head title={`Receipt ${sale.id}`}/>
     <div className="no-print flex gap-2 border-b p-4">
-        <Link href={"/pos"}>
+        <Link href="/pos-home">
         <Button variant="outline">
             <ArrowLeft/>
               Back to POS

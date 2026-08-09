@@ -52,6 +52,7 @@ export default function ProductIndex({ products, categories }: Props) {
                     <table className='w-full text-sm'>
                         <thead className="border-b bg-muted/50">
                            <tr>
+                             <th className="px-3 py-4 text-left">Image</th>
                              <th className="px-3 py-4 text-left">Name</th>
                              <th className="px-3 py-4 text-left">Category</th>
                              <th className="px-3 py-4 text-left">Price</th>
